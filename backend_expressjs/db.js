@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-const mongoURI = "mongodb://localhost:27017/FullStackNewsApp";
+const mongoURI = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.2"
 
 async function connectToMongo() {
-    await mongoose.connect(mongoURI).then(()=> console.log("Connected to Mongo Successfully")).catch(err => console.log(err));
+    await mongoose.connect(mongoURI)
+    .then(()=> console.log("Connected to Mongo Successfully"))
+    .catch(err => console.log(err));
   }
 
   
-  console.log("how are you")
-
 module.exports = connectToMongo;
