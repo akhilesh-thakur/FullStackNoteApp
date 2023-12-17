@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const NotesSchema = new Schema({
-        tittle:{
+        title:{
             type: String,
             required: true
         },
@@ -14,9 +14,9 @@ const NotesSchema = new Schema({
             type: String,
             default: "General"
         },
-        date:{
+        date: {
             type: Date,
-            dafault: Date.now
+            default: Date.now
         },
 });
 
