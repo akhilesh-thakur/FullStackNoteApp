@@ -5,3 +5,4 @@
 3. Nodemon
 4. express-validator
 5. bcryptjs
+6. dotenv
