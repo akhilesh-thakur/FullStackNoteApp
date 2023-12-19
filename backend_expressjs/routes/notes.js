@@ -1,29 +1,46 @@
 const express = require('express');
-const { body, validationResult } = require('express-validator');
-const Note = require('../models/Notes');
 const router = express.Router();
+const Notes = require('../models/Notes');
+const fetchuser = require('../middleware/fetchuser');
+const { body, validationResult } = require('express-validator');
 
-const validateNote = [
-  body('title').notEmpty().withMessage('Title is required'),
-  body('description').isLength({ min: 6 }).withMessage('Description must be at least 6 characters long'),
-];
-
-router.post('/', validateNote, (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+// ROUTE 1: Get all the Notes using GET 'api/auth/fetchallnotes'. Login required
+router.get('/fetchallnotes', fetchuser, async (req, res) => {
+  try {
+    const notes = await Notes.find({user: req.user.id})
+  res.json(notes)
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
+})
 
-  const note = new Note(req.body);
+
+// ROUTE 2: Get all the Notes using POST 'api/auth/addnote'. Login required
+router.post('/addnote', fetchuser, [
+  body('title', 'Enter a valid title').isLength({min:3}),
+  body('description', 'Description must be atleast of 5 characters').isLength({min:5}),
+], async (req, res) => {
+  try {
+    const {title, description, tag} = req.body
+  // return bad request if any error occurred
+  const errors = validationResult(req)
+  if(!errors.isEmpty()){
+    return res.status(400).json({errors: errors.array()})
+  }
+  const note = new Notes({
+    title, description, tag, user: req.user.id
+  })
+  const savedNote = await note.save()
+
+  res.json(savedNote)
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Enternal Server Error")
+  }
   
-  note.save()
-    .then(() => {
-      res.status(201).json({ message: 'Note created successfully', note });
-    })
-    .catch(err => {
-      console.error('Error saving note:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
-    });
 });
+
 
 module.exports = router;
