@@ -7,3 +7,4 @@
 5. bcryptjs
 6. dotenv
 7. jsonwebtoken
+8. cors middleware
