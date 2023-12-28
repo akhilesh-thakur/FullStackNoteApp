@@ -1,12 +1,29 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
-  const handleLogin = () => {
-    // Implement your login logic here
-    console.log(`Logging in with username: ${username} and password: ${password}`);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`http://localhost:3000/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    const json = await response.json();
+    console.log(json);
+    if(json.success){
+         localStorage.setItem('token', json.authtoken)
+         navigate("/")
+    }
+    else{
+        alert("Please login with valid credentials")
+    }
   };
 
   return (
@@ -14,19 +31,25 @@ const Login = () => {
       <h2 className="text-2xl font-bold mb-4">Login</h2>
       <form>
         <div className="mb-4">
-          <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-            Username
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Email
           </label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="mt-1 p-2 border rounded-md w-full"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <input
