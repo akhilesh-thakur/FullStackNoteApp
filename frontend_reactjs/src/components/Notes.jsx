@@ -17,6 +17,9 @@ const Notes = () => {
         <div className="Noteitems w-3/5">
           <h2 className="font-bold text-2xl">Your Notes</h2>
           <div className="card-container">
+            <div className="m-3">
+            {notes.length === 0 && "OOPS! Nothing to Display. Please add"}
+            </div>
             {notes.map((note) => (
               <Noteitem key={note._id} note={note} />
             ))}

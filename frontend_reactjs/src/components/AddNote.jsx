@@ -10,6 +10,7 @@ export default function Addnote() {
   const handleClick = (e) => {
     e.preventDefault();
     addNote(note.title, note.description, note.tag);
+    setnote({ title: "", description: "", tag: "" })
   };
 
   const onChange = (e) => {
@@ -28,6 +29,7 @@ export default function Addnote() {
               Title
             </label>
             <input
+              value={note.title}
               type="text"
               htmlFor="title"
               name="title"
@@ -44,6 +46,7 @@ export default function Addnote() {
               Description
             </label>
             <textarea
+              value={note.description}
               type="text"
               htmlFor="description"
               name="description"
@@ -61,6 +64,7 @@ export default function Addnote() {
               Tag
             </label>
             <input
+              value={note.tag}
               type="text"
               htmlFor="tag"
               name="tag"
