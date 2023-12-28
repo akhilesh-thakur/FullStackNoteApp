@@ -66,6 +66,7 @@ const validateLogin = [
 ];
 
 router.post('/login', validateLogin, async (req,res) => {
+  let success = false
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -75,12 +76,14 @@ router.post('/login', validateLogin, async (req,res) => {
   try {
     const user = await User.findOne({email});
     if(!user){
+      success = false;
       return res.status(500).json({error:"Login with valid credentials"})
     }
 
     const passCompare = await bcrypt.compare(password, user.password);
     if(!passCompare){
-      return res.status(500).json({error:"Login with valid credentials"})
+      success = false;
+      return res.status(500).json({success, error:"Login with valid credentials"})
     }
 
     const data = {
@@ -89,8 +92,8 @@ router.post('/login', validateLogin, async (req,res) => {
       }
     }
     const authtoken = jwt.sign(data, jwtSecret);
-
-    res.status(201).json({authtoken});
+    success = true;
+    res.status(201).json({success, authtoken});
 
   } catch (err) {
     console.error('Error saving user:', err);
