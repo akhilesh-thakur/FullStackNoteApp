@@ -5,9 +5,9 @@ const NoteState = (props)=>{
         {
           "_id": "61322f195153781a8ca8d0e06",
           "user": "6131dc5e3e4037cd4734a066",
-          "title": "My Title",
-          "description": "Please wake up early",
-          "tag": "personal",
+          "title": "Manogo",
+          "description": "Manog is known as the king of all the fruits and is very tasty",
+          "tag": "Fruit",
           "date": "2021-09-03T14:20:09.509Z",
           "__v": 0
         },
@@ -21,34 +21,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "61322f19553781a8ca8d0e081",
-          "user": "6131dc5e3e4037cd4734a066",
-          "title": "My Title",
-          "description": "Please wake up early",
-          "tag": "personal",
-          "date": "2021-09-03T14:20:09.668Z",
-          "__v": 0
-        },
-        {
           "_id": "61322f19553781a8ca8d0e082",
-          "user": "6131dc5e3e4037cd4734a066",
-          "title": "My Title",
-          "description": "Please wake up early",
-          "tag": "personal",
-          "date": "2021-09-03T14:20:09.668Z",
-          "__v": 0
-        },
-        {
-          "_id": "61322f195537812a8ca8d0e08",
-          "user": "6131dc5e3e4037cd4734a066",
-          "title": "My Title",
-          "description": "Please wake up early",
-          "tag": "personal",
-          "date": "2021-09-03T14:20:09.668Z",
-          "__v": 0
-        },
-        {
-          "_id": "613222f19553781a8ca8d0e08",
           "user": "6131dc5e3e4037cd4734a066",
           "title": "My Title",
           "description": "Please wake up early",

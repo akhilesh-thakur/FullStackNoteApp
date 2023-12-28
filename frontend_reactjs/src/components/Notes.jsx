@@ -8,10 +8,10 @@ const Notes = () => {
   const { notes } = context;
 
   return (
-    <div className="parent flex justify-center ">
-      <div className="child flex justify-center flex-col">
+      <div className="parent">
         <Addnote />
-        <div className="YourNotes">
+        <div className="parent-flex flex justify-center">
+        <div className="Noteitems w-3/5">
           <h2 className="font-bold text-2xl">Your Notes</h2>
           <div className="card-container">
             {notes.map((note) => (
@@ -19,8 +19,8 @@ const Notes = () => {
             ))}
           </div>
         </div>
+        </div>
       </div>
-    </div>
   );
 };
 

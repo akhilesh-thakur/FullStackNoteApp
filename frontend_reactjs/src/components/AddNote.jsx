@@ -16,7 +16,7 @@ export default function Addnote() {
     setnote({ ...note, [e.target.name]: e.target.value });
   };
   return (
-    <div>
+    <div className="flex justify-center">
       <div className="AddNote w-[60vw] my-3 bg-slate-100 p-3 rounded-lg shadow-lg ">
         <h2 className="text-2xl font-bold mb-3">Add a Note</h2>
         <form className="my-3">
@@ -28,11 +28,12 @@ export default function Addnote() {
               Title
             </label>
             <input
-              name="title"
               type="text"
+              htmlFor="title"
+              name="title"
+              id="title"
               onChange={onChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
-              id="title"
             />
           </div>
           <div className="mb-3">
@@ -43,10 +44,12 @@ export default function Addnote() {
               Description
             </label>
             <textarea
-              onChange={onChange}
               type="text"
-              className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
+              htmlFor="description"
+              name="description"
               id="description"
+              onChange={onChange}
+              className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
               rows="3"
             ></textarea>
           </div>
@@ -58,12 +61,12 @@ export default function Addnote() {
               Tag
             </label>
             <input
-              htmlFor="description"
-              name="description"
               type="text"
+              htmlFor="tag"
+              name="tag"
+              id="tag"
               onChange={onChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
-              id="description"
             />
           </div>
           <button
