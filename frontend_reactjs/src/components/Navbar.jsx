@@ -24,10 +24,10 @@ export default function Navbar() {
           <div className="hidden md:flex">
             {!localStorage.getItem('token')?
             <>
-            <Link to="/login" className="flex items-center font-bold mx-3 text-blue-500">Login</Link>
-            <Link to="/signup" className="mx-3 bg-blue-500 text-white px-4 py-2 rounded">Signup</Link>
+            <Link to="/login" className="flex items-center font-bold mx-3 text-blue-500 hover:text-blue-600">Login</Link>
+            <Link to="/signup" className="mx-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Signup</Link>
             </>
-            : <button className="mx-3 bg-blue-500 text-white px-4 py-2 rounded" onClick={logout}>Logout</button>}
+            : <button className="mx-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={logout}>Logout</button>}
           </div>
           <div className="md:hidden cursor-pointer">
           </div>
