@@ -1,16 +1,52 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSignup = () => {
-    // Implement your signup logic here
-    console.log(
-      `Signing up with email: ${email}, username: ${username}, password: ${password}, and confirmPassword: ${confirmPassword}`
-    );
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    // Email validation check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Invalid email address");
+      return;
+    }
+
+    // Password matching check
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    // Password length check
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long");
+      return;
+    }
+
+    // Post request starts here
+    const response = await fetch(`http://localhost:3000/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+    const json = await response.json();
+    if (json.success) {
+      localStorage.setItem("token", json.authtoken);
+      navigate("/");
+    } else if (!json.success) {
+      alert("Sorry, a user with this email already exists");
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -19,16 +55,16 @@ const Signup = () => {
       <form>
         <div className="mb-4">
           <label
-            htmlFor="username"
+            htmlFor="name"
             className="block text-sm font-medium text-gray-700"
           >
-            Username
+            Name
           </label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="mt-1 p-2 border rounded-md w-full"
           />
         </div>
@@ -41,6 +77,7 @@ const Signup = () => {
           </label>
           <input
             type="email"
+            required
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -57,6 +94,8 @@ const Signup = () => {
           <input
             type="password"
             id="password"
+            required
+            minLength={6}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="mt-1 p-2 border rounded-md w-full"
@@ -72,6 +111,8 @@ const Signup = () => {
           <input
             type="password"
             id="confirmPassword"
+            required
+            minLength={6}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="mt-1 p-2 border rounded-md w-full"
