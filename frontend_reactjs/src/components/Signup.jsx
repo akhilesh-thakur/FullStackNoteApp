@@ -11,22 +11,28 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
 
+     // if form is blank,
+     if (name === "" || email === "" || password === "" || confirmPassword === "") {
+      alert("Form cannot be blank")
+      return;
+    }
+
     // Email validation check
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Invalid email address");
+    if (email && !emailRegex.test(email)) {
+      alert("Invalid email address")
       return;
     }
 
     // Password matching check
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert("Password do not match")
       return;
     }
 
     // Password length check
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters long");
+    if (password && password.length < 6) {
+      alert("Password must be atleast 6 characters long")
       return;
     }
 
@@ -42,10 +48,10 @@ const Signup = () => {
     if (json.success) {
       localStorage.setItem("token", json.authtoken);
       navigate("/");
-    } else if (!json.success) {
-      alert("Sorry, a user with this email already exists");
+    } else if (email && password && !json.success) {
+      alert("Sorry, a user with this email already exists")
     } else {
-      alert("Something went wrong. Please try again.");
+      alert("Something went wrong. Please try again.")
     }
   };
 
