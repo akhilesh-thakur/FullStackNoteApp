@@ -4,10 +4,25 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // if form is blank,
+    if ( email === "" || password === "" ) {
+      alert("Form cannot be blank");
+      return;
+    }
+
+    // Email validation check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      alert("Invalid email address");
+      return;
+    }
+
+    // POST request logic
     const response = await fetch(`http://localhost:3000/api/auth/login`, {
       method: "POST",
       headers: {
@@ -16,12 +31,11 @@ const Login = () => {
       body: JSON.stringify({ email, password }),
     });
     const json = await response.json();
-    if(json.success){
-         localStorage.setItem('token', json.authtoken)
-         navigate("/")
-    }
-    else{
-        alert("Please login with valid credentials")
+    if (json.success) {
+      localStorage.setItem("token", json.authtoken);
+      navigate("/");
+    } else {
+      alert("Please login with valid credentials");
     }
   };
 
