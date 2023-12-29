@@ -9,7 +9,7 @@ const fetchuser = require('../middleware/fetchuser')
 const jwtSecret = process.env.JWT_SECRET;
 
 
-// Creating users using "/api/auth/register" POST method
+// ROUTE 1. "SIGNUP" Creating users using "/api/auth/register" POST method
 const validateUser = [
   body('name').notEmpty().withMessage('Name is required'),
   body('email').isEmail().withMessage('Invalid email address'),
@@ -17,6 +17,7 @@ const validateUser = [
 ];
 
 router.post('/register', validateUser, async (req, res) => { // Async function to use await with bcrypt
+  let success = false
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -26,6 +27,7 @@ router.post('/register', validateUser, async (req, res) => { // Async function t
     // Respond an error is the entered email already exists in database
     const existingUser = await User.findOne({ email: req.body.email });
     if (existingUser) {
+      success = false
       return res.status(400).json({ error: "Sorry a user with this email already exists" })
     }
 
@@ -49,8 +51,8 @@ router.post('/register', validateUser, async (req, res) => { // Async function t
       }
     }
     const authtoken = jwt.sign(data, jwtSecret);
-
-    res.status(201).json({authtoken});
+    success = true;
+    res.status(201).json({success, authtoken});
 
   } catch (err) {
     console.error('Error saving user:', err);
@@ -59,7 +61,7 @@ router.post('/register', validateUser, async (req, res) => { // Async function t
 });
 
 
-// Authenticating user at "/api/auth/login" POST method
+// ROUTE 2: "LOGIN" Authenticating user at "/api/auth/login" POST method
 const validateLogin = [
   body('email').isEmail().withMessage('Invalid email address'),
   body('password').exists().withMessage('Enter a valid password'),
