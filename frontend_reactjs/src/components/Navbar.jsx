@@ -1,7 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    navigate('/login')
+    
+  }
   return (
     <div className="navbar bg-black text-white p-3">
       <div className="flex justify-between items-center">
@@ -15,8 +22,12 @@ export default function Navbar() {
 
         <div className="flex items-center">
           <div className="hidden md:flex">
+            {!localStorage.getItem('token')?
+            <>
             <Link to="/login" className="flex items-center font-bold mx-3 text-blue-500">Login</Link>
             <Link to="/signup" className="mx-3 bg-blue-500 text-white px-4 py-2 rounded">Signup</Link>
+            </>
+            : <button className="mx-3 bg-blue-500 text-white px-4 py-2 rounded" onClick={logout}>Logout</button>}
           </div>
           <div className="md:hidden cursor-pointer">
           </div>
