@@ -20,11 +20,14 @@ The project consists of two main parts:
 
 ### Technologies Used
 - React.js
+- Taiwind CSS
 
 ### Getting Started
 1. Navigate to the `frontend` directory.
 2. Install dependencies: `npm install`
-3. Start the development server: `npm start`
+3. Set up environment variable (VITE_API_URL).
+4. Start the development server: `npm run dev`
+5. Build for production `npm run build`
 
 ### Features
 - User Authentication (Login and Signup)
@@ -35,13 +38,13 @@ The project consists of two main parts:
 ### Technologies Used
 - Node.js
 - Express.js
-- MongoDB (or any other database of your choice)
+- MongoDB Atlas
 
 ### Getting Started
 1. Navigate to the `backend` directory.
 2. Install dependencies: `npm install`
-3. Set up environment variables (e.g., database connection details, secret keys).
-4. Start the server: `npm start`
+3. Set up environment variables (e.g., MONGODB_URI and JWT_SECRET).
+4. Start the server: `node ./index.js`
 
 ### Features
 - User Authentication API
@@ -51,3 +54,9 @@ The project consists of two main parts:
 
 ### Prerequisites
 - Amazon EC2 instance
+
+### Deployment Guide
+For detailed instructions on deploying a MERN (MongoDB, Express, React, Node.js) application on a Virtual Private Server (VPS), follow the guide at:
+
+[Deploying MERN App on VPS](https://github.com/akhilesh-thakur/cheatsheets/blob/main/DevOps/MERN_App_Deployment.md)
+
