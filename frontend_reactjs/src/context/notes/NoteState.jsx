@@ -1,8 +1,9 @@
-import { stringify } from "postcss";
+import React from "react";
 import NoteContext from "./noteContext";
 import { useState } from "react";
+
 const NoteState = (props) => {
-  const host = "http://localhost:3000";
+  const host = import.meta.env.VITE_API_URL;
   const notesInitial = [];
   const [notes, setNotes] = useState(notesInitial);
 
@@ -18,7 +19,6 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json);
     setNotes(json);
   };
 
